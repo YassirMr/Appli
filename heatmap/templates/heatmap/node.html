@@ -1,0 +1,10 @@
+
+
+
+        <form action="{% url "heatmap:node" %}" method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="submit">
+
+<br> <a href="{% url 'heatmap:index' %}"> Go back to home page  </a> </li> </br>
+

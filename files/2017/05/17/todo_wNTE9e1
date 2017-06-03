@@ -1,0 +1,74 @@
+
+
+
+
+I can plot the propagation in other "paths" of the lab (not only the direct row) and fit them with a model. for example the diagonal with nodes hidden behind a small wall, how to fit that one depending on the increase of the distance  
+
+
+what are the bins: they are intervals to cluster the values that you have
+find the distribution fitting (rais, raileigh) and look for std mean values etc..  => in my-antenna-better.py 
+find the error of the fitting
+predict values of rssi, but also do it according to the distance
+
+(now) have you found anything strange (prediction) 
+some program to quantify the fault
+start writing the report
+
+
+what is the best position that a node should be in so that it has a good coverage. (algorithm that computes the error)
+
+look for annomalies (running parallel experiments, using only some antennas)
+Ib.?C#3]
+
+For each node, at this distance this is the signal that was received. in x-axis: rss in y-axis: distance. So that we see how spread around the 
+distance values of rss are. 
+
+Post meeting:
+1 antenne a l'emission pour chaque puissance.
+separer les antennes en emission et en reception.
+screening
+(what we can change that has an impact)
+(we want reproducible results/logical ones. For this distance what should happen)
+-in antenna-better.py display values of std and mean
+-in model-fit.py plot only with the value of attenuation and plot confidance intervals. 
+
+parameters: inclinaison of antennas. 
+
+Sota:(std to accuracy, confidence intervals)
+Monster, lesjeudis
+
+
+
+useful links (mine):
+https://github.com/YassirMr/Internship
+https://plot.ly/organize/home/
+https://trello.com/b/Q6oPhpGm/results-of-experiments
+
+
+apply antenna mask only at the level of node sender
+get a more convinient way to write the output files
+build results automaticaly
+jmp
+csv; panda
+
+
+-script to intiate ad-hoc network between all the nodes
+-run the heatmap script
+-get the pcap files then proceed to infere rssi files
+-once you have the heatmaps with 5ghz, you can get to the path loss model and run the experiment on two nodes to see the implication on the frequency.
+
+-CV
+-automate scripts
+-Django
+
+
+-Automatiser la recoltes des données statistiques (journalier)
+-Archivage les données dans une base de données
+-Representation statistique de l'evolution de l'etat du lab
+
+Chaque Jour (automatiquement/ a defaut avec une seule execution)
+-generer les fichiers rssi autour de 2ghz et de 5ghz
+-alimenter la base de données avec les valeurs
+-ploter le changement journalier en rssi (pour 1 couple de noeuds) 
+
+-Django (button: fill database with today's information, button:heatmap , button: read database (representation), button: experiences(for a set of nodes; two levels of Tx or Freq or distance or angle))

@@ -1,0 +1,19 @@
+So the way to do it, with a full factorial design of experiments, is to look for main effect factors and interactions between factors.
+We will take for each factor a two level scheme, high and low, and then run the full factorial experiment. 
+We will specify a treshold from which we will say that the experiment failed (there is a t-way interaction for that configuration; if it 
+happend for all the configurations) and the experiment is ok for values above the treshold. The treshold is the result of the experiment,
+for our situation it is the value of rss. 
+Then we will look for optimal configurations and reproducibility of results for a specific configuration. 
+Run the experiment a couple of times to see if this factor is a main effect or there was some external noise at that time.
+look for interactions between factors. 
+Reproducibility: any two node interactions. And then we may look at the optional factors. 
+
+Anova ?
+why a fitting ? 
+
+
+Steps:
+design chosen: full factorial
+run the tests and get the result for each experiment
+enter the values in jmp (/graphically represent / represent) and get wich factors are influent
+

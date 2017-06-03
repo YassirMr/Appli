@@ -1,0 +1,21 @@
+<html>
+<body>
+        <form action="{% url "heatmap:fit" %}" method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="submit">
+
+<br> <a href="{% url 'heatmap:index' %}"> Go back to home page  </a> </li> </br>
+
+<!-- {% if messages %}
+    {% for message in messages %}
+      <div class="alert
+      {% if message.tags %} alert-{{ message.tags }}
+      {% endif %}">
+{% load static %}
+<img src="{% static "heatmap/images/fig.png" %}" alt="My image"/>   </div>
+    {% endfor %}
+{% endif %}  -->
+
+</body>
+</html>

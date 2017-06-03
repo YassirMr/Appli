@@ -1,0 +1,16 @@
+<h2> Welcome, please select one of the following </h2>
+<ul>
+<li>  <a href="{% url 'heatmap:importer' %}"> Link to include an RSS file  </a> </li>
+ <li>  <a href="{% url 'heatmap:show' %}"> Show state of the lab  </a> </li>
+ <li>  <a href="{% url 'heatmap:node' %}"> Show daily rss between two nodes  </a> </li>
+    <li>  <a href="{% url 'heatmap:fit' %}"> Model fit of the lab  </a> </li>
+</ul>
+
+
+{% if messages %}
+    {% for message in messages %}
+      <div class="alert
+      {% if message.tags %} alert-{{ message.tags }}
+      {% endif %}"> <script> alert("Thank you!"); </script>  </div>
+    {% endfor %}
+{% endif %}

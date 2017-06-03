@@ -1,0 +1,33 @@
+Ce que j'ai fait pour l'instant:
+Depuis les tutoriaux j'ai compris comment executer des commandes au niveau des noeuds qu'il y'a dans le laboratoire. En instanciant un objet de type sshjob qui s'execute au niveau de l'objet sshnode, aussi comment prendre des fichiers qui ont été crée au niveau des noeuds distants avec la commande Pull. Et donc il reste l'idée de l'algorithme, celui qui est de lancer tcpdump dans les noeuds et commencer a pinger sequentiellement ou parallement et soutirer des informations comme rssi. 
+
+quels sont les imput, qu'est ce qu'on peut modifer pour qu'il y'ai un changement dans l'output
+Je devrais emettre et voir les rssi, voir si y'a des problemes (reflexions, refraction..) 
+voir quelle antenne marche mieu (une generalité)
+Csi.
+quels sont les modeles d'emssion du lab. (avec une map reelle du lab). et ajouter un parametre (noise) et ajuster le modele
+
+methodology:
+lance les test (ping rssi) en modifiant la puissance d'emission et l'antenne de reception. (1 emeteur all recepteurs) pour chaque noeuds.
+(interessants 5 et 37) => have these results for next week.
+
+Then we can investigate the transmission model of the lab. Still don't know how.
+
+
+command: uname -a
+
+En fait les ping que je lancais c'etait 100 fois 
+
+Alors ce que j'ai fais: 
+-On voulait faire des heatmaps autour de la bande de 5ghz, du coup au debut on a vu que c'etait pas possible d'acceder a ces bandes la,
+on a essayé de redefinir le domaine regulatoire de la carte de mondial à celui d'un pays ou ces bandes sont utilisées, on a pas pu le changer,
+apres on a essayé avec des images plus anciennes de linux, ca été possible avec ubuntu-2012 donc c'etait le driver qui empechais cela. 
+-J'ai rendu le script compatible avec la bande 5ghz, maitnenant on peut visualiser des heatmaps a 5ghz, par contre, je n'arrive pas a appliquer
+le masque 7 (pour avoir les valeurs de chaques antenne) je n'ai qu une seule valeur de rssi. ET aussi en 5ghz il arrive souvent que les pings
+n'arrivent pas et du coup on obtient souvent la valeur -100 en rssi. "Weird behavior": en commande envoyer 100 pings, ce qui se passe vraiment
+c'est 12 pings qui sont envoyés. 
+-Je maintiens une base de données que je remplis tout les jours (ou presque) pour garder trace et suivre l'evolution du lab. script db-heatmap.
+-Interessant a savoir: C'est possible d'avoir une puissance en emission qui est de 0dBm.
+
+-Penser a l'ingenierie du script (nouvelle version), ca n'a pas marché parceque beaucoup de pings n'arrivaient pas à destination. 
+-Les autres experiences que j'ai faites en DOE (2,3,4)  
