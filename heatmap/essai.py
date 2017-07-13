@@ -1,4 +1,4 @@
-from . import models
+from heatmap import models
 
 lines= models.Input.objects.values_list('node_sender')
 print(lines)

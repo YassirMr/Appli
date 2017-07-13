@@ -1,16 +1,339 @@
+{% load static  %}
+<title>Welcome page</title>
+<img  style='height: 60%; width: 100%' src="{% static "heatmap/images/chambre.jpeg" %}">
+
 <h2> Welcome, please select one of the following </h2>
-<ul>
-<li>  <a href="{% url 'heatmap:importer' %}"> Link to include an RSS file  </a> </li>
- <li>  <a href="{% url 'heatmap:show' %}"> Show state of the lab  </a> </li>
- <li>  <a href="{% url 'heatmap:node' %}"> Show daily rss between two nodes  </a> </li>
-    <li>  <a href="{% url 'heatmap:fit' %}"> Model fit of the lab  </a> </li>
-</ul>
+<p>
+  <a href="{% url 'heatmap:importer' %}"> <img border="0"  src="{% static "heatmap/images/drop.png" %}" width="150" height="100" >  </a>
+   <a href="{% url 'heatmap:show' %}"> <img border="0"  src="{% static "heatmap/images/heatmap.png" %}" width="120" height="100" >  </a>
+   <a href="{% url 'heatmap:node' %}"> <img border="0" src="{% static "heatmap/images/daily.png" %}" width="120" height="100" >   </a>
+      <a href="{% url 'heatmap:fit' %}"> <img border="0" src="{% static "heatmap/images/fit.png" %}" width="120" height="100" >  </a>
+</p>
+<br> <br> <br> <br> <br> <br>
+<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: absolute;
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #4682B4;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #4682B4;
+    color: white;
+}
+ .closee {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closee:hover,
+.closee:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+meter::-moz-meter-bar {
+    background: #32CD32 ;
+    border: 1px solid #CCC;
+}
+meter[value^="-6"]::-moz-meter-bar {
+    background:red ;
+    border: 1px solid #CCC;
+}
+meter[value^="-7"]::-moz-meter-bar {
+    background:red ;
+    border: 1px solid #CCC;
+}
+</style>
+
+<div>
+<form method="post"  action="{% url "heatmap:index" %}">
+    {% csrf_token %}
+<input type="submit" align="center" name="fit1" value="Actualise" >
+
+<img id="myBtn" align="left" class="img-seach" src="{% static "heatmap/images/journal.png" %}" width="100" height="120" >
+
+<img id="myImg"  src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-128.png" >
+
+</div>
+ <br>  <br>  <br>  <br>
+
+<img  style='height: 60%; width: 100%' src="{% static "heatmap/images/chambre.jpeg" %}">
+
+    <!-- Trigger/Open The Modal -->
+<!-- I tried to give some information by a post method but it was rendering the page too quickly to display icon inf
+ The other way should be to execute a whole script containing lav information when lunching index view and display in
+ each icon the values, but the inconvenient is that there will be a lot of thing to render and a heavy script in the other side
+ let's investigate a little bit more the post form or get one-->
+
+<div id="myModal2" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+         <span class="closee">&times;</span>
+      <h2>The lab</h2>
+    </div>
+    <div class="modal-body">
+      <p>
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+      </p>
+         <p>
+             <meter id="health1" value="0" min="-80" max="-48.956" style="width:100"></meter>
+             <meter id="health6" value="0" min="-80" max="-48.649" style="width:100"></meter>
+             <meter id="health11" value="0" min="-80" max="-45.539" style="width:100"></meter>
+             <meter id="health16" value="100" min="-80" max="-47.09" style="width:100" ></meter>
+             <meter id="health19" value="100" min="-80" max="-46.519" style="width:100"></meter>
+             <meter id="health23" value="100" min="-80" max="-49.735" style="width:100"></meter>
+            <meter id="health26" value="100" min="-80" max="-48.505" style="width:100" ></meter>
+             <meter id="health31" value="100" min="-80" max="-54.45" style="width:100"></meter>
+      </p>
+        <p>
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/none.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/none.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+      </p>
+        <p>
+           <div><meter id="health2" value="100" min="-80" max="-48.482" style="width:100" ></meter>
+             <meter id="health7" value="100" min="-80" max="-51.007" style="width:100"></meter>
+             <meter id="health12" value="100" min="-80" max="-39.382" style="width:100"></meter>
+            <img src="{% static "heatmap/images/none.png" %}" alt="node3" width="100" height="20">
+             <meter id="health20" value="100" min="-80" max="-44.68" style="width:100"></meter>
+            <img src="{% static "heatmap/images/none.png" %}" alt="node3" width="100" height="20">
+             <meter id="health27" value="100" min="-80" max="-49.34" style="width:100"></meter>
+             <meter id="health32" value="100" min="-80" max="-58.047" style="width:100"></meter></div>
+      </p>
+         <p>
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+      </p>
+        <p>
+           <div><meter id="health3" value="100" min="-80" max="-56.686" style="width:100" ></meter>
+             <meter id="health8" value="100" min="-80" max="-61.691" style="width:100"></meter>
+             <meter id="health13" value="100" min="-80" max="-47.444" style="width:100"></meter>
+             <meter id="health17" value="100" min="-80" max="-51.026" style="width:100" ></meter>
+             <meter id="health21" value="100" min="-80" max="-45.68" style="width:100"></meter>
+             <meter id="health24" value="100" min="-80" max="-46.356" style="width:100"></meter>
+             <meter id="health28" value="100" min="-80" max="-48.775" style="width:100" ></meter>
+             <meter id="health33" value="100" min="-80" max="-51.08" style="width:100"></meter></div>
+      </p>
+        <p>
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+            <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+      </p>
+        <p>
+           <div><meter id="health4" value="100" min="-80" max="-49.661" style="width:100" ></meter>
+             <meter id="health9" value="100" min="-80" max="-47.04" style="width:100"></meter>
+             <meter id="health14" value="100" min="-80" max="-48.316" style="width:100"></meter>
+             <meter id="health18" value="100" min="-80" max="-47.45" style="width:100" ></meter>
+             <meter id="health22" value="100" min="-80" max="-46.148" style="width:100"></meter>
+             <meter id="health25" value="100" min="-80" max="-44.044" style="width:100"></meter>
+             <meter id="health29" value="100" min="-80" max="-48.018" style="width:100" ></meter>
+             <meter id="health34" value="100" min="-80" max="-52.19" style="width:100"></meter>
+             <meter id="health36" value="100" min="-80" max="-55.308" style="width:100"></meter></div>
+      </p>
+        <p>
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/none.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/none.png" %}" alt="node2" width="100" height="80">
+          <img src="{% static "heatmap/images/none.png" %}" alt="node3" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node1" width="100" height="80">
+          <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+            <img src="{% static "heatmap/images/node.png" %}" alt="node2" width="100" height="80">
+      </p>
+        <p>
+           <div><meter id="health5" value="100" min="-80" max="-55.52" style="width:100" ></meter>
+             <meter id="health10" value="100" min="-80" max="-48.19" style="width:100"></meter>
+             <meter id="health15" value="100" min="-80" max="-60.29" style="width:100"></meter>
+            <img src="{% static "heatmap/images/none.png" %}" alt="node3" width="100" height="20">
+            <img src="{% static "heatmap/images/none.png" %}" alt="node3" width="100" height="20">
+            <img src="{% static "heatmap/images/none.png" %}" alt="node3" width="100" height="20">
+            <meter id="health30" value="100" min="-80" max="-58.31" style="width:100"></meter>
+             <meter id="health35" value="100" min="-80" max="-51.09" style="width:100"></meter>
+             <meter id="health37" value="100" min="-80" max="-54.45" style="width:100"></meter></div>
+      </p>
+    </div>
+      <div class="modal-footer">
+      <h3>r2lab</h3>
+    </div>
+  </div>
+  <div id="caption"></div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Lab report</h2>
+    </div>
+    <div class="modal-body">
+      <p>State of lab </p>
+        <p> Best interactions : <br>
+            {% for i in v1  %}
+        {{ i }} <br>  {% endfor %} </p>
+        <p> Wosrt interactions : <br>
+            {% for i in v2  %}
+        {{ i }} <br>  {% endfor %} </p>
+        <p>  {% for i in v3  %}
+        {{ i }} <br>  {% endfor %}</p>
+
+    </div>
+    <div class="modal-footer">
+      <h3>r2lab</h3>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+// Get the modal
+var modal = document.getElementById('myModal');
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal | event.target==modal2) {
+        modal.style.display = "none";
+        modal2.style.display = "none";
+    }
+}
+
+var modal2 = document.getElementById('myModal2');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById('myImg');
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+    modal2.style.display = "block";
+}
+
+// Get the <span> element that closes the modal
+var span2 = document.getElementsByClassName("closee")[0];
+
+// When the user clicks on <span> (x), close the modal
+span2.onclick = function() {
+    modal2.style.display = "none";
+}
+var tmp={{ average }}
+for (i=1;i<39;i++){
+health= document.getElementById("health"+i);
+data_from_django = tmp[i-1] ;
+//data_from_django=-data_from_django; no need anymore
+health.value= data_from_django;}
+</script>
+
+
+
+
 
 
 {% if messages %}
-    {% for message in messages %}
-      <div class="alert
-      {% if message.tags %} alert-{{ message.tags }}
-      {% endif %}"> <script> alert("Thank you!"); </script>  </div>
-    {% endfor %}
+        {% for message in messages %}
+            {% ifequal message.tags "info" %}
+                <script> alert("Thank you!"); </script>
+            {% endifequal %}
+        {% endfor %}
 {% endif %}
+
+
+

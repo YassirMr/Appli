@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views
+from heatmap import views
 app_name = 'heatmap'
 
 urlpatterns = [
@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^import/', views.importer , name='importer'),
     url(r'^show/', views.show , name='show'),
     url(r'^node/', views.node , name='node'),
-    url(r'^fit/', views.fit , name='fit')
+    url(r'^fit/', views.fit , name='fit'),
+    url(r'^forfit/', views.forfit , name='forfit')
 
 ]

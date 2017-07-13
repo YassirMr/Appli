@@ -1,15 +1,13 @@
 import matplotlib
-#matplotlib.use('Agg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
 import scipy.stats
 from math import log10
 from sklearn.metrics import mean_squared_error
-from . import models
-from matplotlib.widgets import Button
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-from django.http import HttpResponse
+from heatmap import models
+from django.conf import settings
 
 
 
@@ -47,6 +45,7 @@ def draw(f,d):
 
     plt.plot(row_distance, R_logdistance, 'b^', label="log distance")
     print('Mean quare error r2lab/log: {}'.format(mean_squared_error(received_power, R_logdistance)))
+    error_r2lab_log = mean_squared_error(received_power, R_logdistance)
 
     # ploting the telecom equation model
     for i in row_distance:
@@ -61,6 +60,7 @@ def draw(f,d):
     # print(26.16*log10(args.freq)-c+44.9*log10(i/1000))
     plt.plot(row_distance, R_hata, 'mo', label="hata model")
     print('Mean quare error r2lab/hata: {}'.format(mean_squared_error(received_power, R_hata)))
+    error_r2lab_hata=mean_squared_error(received_power, R_hata)
 
     plt.legend(bbox_to_anchor=(0.8, 1), loc=2, borderaxespad=0.)  # 1.05
     # Here the confidence bounds are computed
@@ -75,5 +75,7 @@ def draw(f,d):
     plt.plot([row_distance[0], row_distance[-1]], [m + h, m + h], 'r')
     plt.text(row_distance[-1], m + h, 'higher confidence bound')
 
-    return plt.show()
-    #return plt.savefig("/static/heatmap/images/fig.png")
+    #return plt.show()
+    dir = settings.BASE_DIR
+    plt.savefig(dir + "/heatmap/static/heatmap/images/fig2.png")
+    return [error_r2lab_log, error_r2lab_hata]
