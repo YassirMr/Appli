@@ -1,13 +1,26 @@
+{% load static  %}
+<html>
 
-
-
+<title>Heatmap</title>
+First select a frequency and check the available days
+<br>
+{{ msg }}
+<br>
 <body>
-
-        <form action="{% url "heatmap:show" %}" method="post">   <!--  -->
+<p>
+    <form id="from" action="{% url "heatmap:show" %}" method="post">
     {% csrf_token %}
     {{ form.as_table }}
     <input type="submit" value="submit">
-        </form>
+</p>
+
+<script>
+function refresh() {
+     window.location.href="{% url "heatmap:show" %}";
+}
+</script>
+<p>
 <br> <a href="{% url 'heatmap:index' %}"> Go back to home page  </a> </li> </br>
+</p>
 </body>
 </html>

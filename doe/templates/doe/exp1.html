@@ -2,19 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>experience 1</title>
+    <title>Experiment</title>
 </head>
+{% load static %}
 <body>
-<h4> Description:</h4> In this experiment we have considered the following variables:
+<h4> Introduction: </h4>
+This experiment's objective is to denote what are the influent factors on the received signal, for this purpose
+we have considered the following variables:
+
 <ul>
     <li> Transmission Power </li>
     <li> Physical rate </li>
-    <li> Number of antennas used </li>
     <li> Distance </li>
+    <li> Frequency </li>
 </ul>
 Every one of the above factors have been taken in a high and low value. For example, Tranmission power: [5,14] dBm. <br>
-The design chosen is a full factorial one, which means that we run all the experiments. <br>
-Nodes involved in the experiment: sender: {}   receiver:  {}  <br>
-(image)
+<h5> Experience </h5>
+Nodes involved in the experiment: Sender 4   Receivers  9,36  <br>
+<textarea  rows="16" cols="120">
+Transmission power           Physical rate          Distance        Frequency               Rss
+14 	                     6	                    1.36            2412	            -33.64
+14 	                     6	                    1.36            5180		    -30.54
+14 	                     6	                    10.88           2412		    -58.63
+14 	                     6	                    10.88           5180		    -63.88
+14 	                     54	                    1.36            2412	        -34.52
+14 	                     54	                    1.36            5180            -29.82
+14 	                     54	                    10.88           2412            -59.16
+14 	                     54	                    10.88           5180            -63.45
+</textarea> <br>
+From this experiment we notice that distance and transmission power are influent factors, by changing them the received signal strength highly changes.
+The rate on the other hand doesn't highly impact the rss, and the frequency ...
+
+<h4> What about future work ? </h4>
+We would like to find a consistent propagation model that signal follows inside the lab. <br>
+To do so, the first step is to construct a set of nodes depending on whether a node's antenna is on line of sight or not then
+making a fitting of the antennas received power for each category. The model should consider all the influent factors. Then in order
+to characterize the reflexions inside the lab, we want to create a virtual map and include in each nodes position the reflexion
+objects with their specific reflexion indicator and visualize how the signal propagates inside.
 </body>
 </html>

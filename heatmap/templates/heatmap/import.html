@@ -6,13 +6,15 @@
         {% load staticfiles %}
         <link href="{% static 'heatmap/css/dropzone.css' %}" type="text/css" rel="stylesheet"/>
     </head>
+First Select the frequency of the RSS file you want to upload
     <body>
-
         <!-- IMPORTANT enctype attribute! -->
-        <form  class="dropzone" action="{% url "heatmap:importer" %}" method="post" enctype="multipart/form-data">
+        <!-- one idea is to put onsubmit on the form, then block dislay frequency with an undo button that reloads the page -->
+        <form  class="dropzone" action="{% url "heatmap:importer" %}" enctype="multipart/form-data"  method="post" >
             {% csrf_token %}
         {{ form2.as_table }}
-        <input type="submit" value="submit">
+    <input type="submit" value="finish" >
+
         <!-- <button id="submit-all"  >
             Submit all files
         </button>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+{% load static %}
+<body>
+<h3> 1.Assessing the antennas of the nodes</h3>
+<h4 style="color:#004d99;"> Introduction: </h4>
+Each node in the r2lab has 2 wireless cards it can choose for transmission. We decide to choose the atheros cards because they offer
+the possibility to set a mask for antennas. The antenna mask controls how many antennas are used, whether it is for transmission or reception. Values for mask are [1,3,7] for respectively using [1,2,3] antennas.  <br>
+We will assess antennas with a histogram of received signal strength values. <br> Note that when there is an ongoing transmission
+while setting the mask 7, we monitor a fourth value that is the aggregation of signal strength by all antennas. <br>
+For the experience
+we take node 1 as receiver node and we get the rss values of each antenna separately and the value aggregated by all antennas:
+<img src="{% static "doe/images/fig1.png" %}">
+<textarea  rows="11" cols="80">Mean value for ant=all is :-50.10583333333333
+Standard deviation for ant=all is :8.760002405413891
+
+Mean value for ant=0 is :-57.01888888888889
+Standard deviation for ant=0 is :8.258323862375041
+
+Mean value for ant=1 is :-59.74638888888889
+Standard deviation for ant=1 is :9.144628760027942
+
+Mean value for ant=2 is :-52.319722222222225
+Standard deviation for ant=2 is :9.396421351043662
+</textarea> <br>
+We see that the histogram of the values when using all antennas is more scewed to the right, with a higher mean than the histogram
+of the other antennas, wich shows that we receive better when we use all the antennas. <br>
+When using all the antennas we end up with a better signal, the reason behind it the use of
+a technique called maximal ratio combining and it consists on extracting the maximum energy of bits at each antenna
+and aggregate the best symbol energies to get the highest value for the received signal strength. <br> <br>
+
+Note that these values are for reception, we kept sending with all antennas. There is also a noticeable difference between sending with
+one anttena and sending with all of them. (2-4 dB of difference)
+<br> <br>
+<textarea  rows="5" cols="80">
+Node sender                Node receiver           Mask                    Rss
+1			    16			    7			-49.49
+1			    16			    1			-53.45
+1			    4			    7			-49.21
+1			    4			    1			-51.43
+</textarea> <br>
+
+<h3> 2.How much does transmission power impact received power ? </h3>
+<h4 style="color:#004d99;"> Context: </h4>
+In this experience we modify the transmission power and monitor the received power at the level of the receiver, because more stability is offered when using all antennas, we go for that choice.
+<br>
+<img src="{% static "doe/images/fig2.png" %}"> <br>
+The perfect case scenario is in each time we increase transmission power by 1dB, the received power should also increase by 1dB. The figure above is closely following this pattern.
+<h3> 3. Model fit of the lab transmission: </h3>
+<h4 style="color:#004d99;"> Description: </h4>
+We find many transmission models that predict the received signal strength depending on factors, for instance if the transmission is indoor or outdoor,
+depending on the frequency of the transmission, on the distance between the two equipments, the number, thickness and material of the obstacles etc.
+Our purpose here is the evaluate the models with a real transmission inside the lab. <br>
+The models chosen are the following: <br>
+<ul>
+<li> <b style="color:#6C2333;"> The Telecoms equation:</b> <img src="{% static "doe/images/fig17.png" %}">  </li>
+     <br> Where: <ul> <li>  Gt = Gain of transmission antenna.</li>
+ <li>  Gr = Gain of receiving antenna.</li>
+ <li>  λ = wavelength </li>
+  <li>  R = distance between the two antennas.</li>
+</ul>
+<li> <b style="color:#6C2333;"> The Two-Rays Ground Reflected Model:</b> <img src="{% static "doe/images/fig18.png" %}"> </li> <br>
+<li> <b style="color:#6C2333;"> The Hata Model:</b> <img src="{% static "doe/images/fig19.png" %}"> <br> With <img src="{% static "doe/images/fig20.png" %}"> </li>
+     <br> Where: <ul> <li>  hB = Height of the emitting antenna</li>
+ <li>  hM = Height of the receiving antenna.</li>
+ <li> CH = Antenna height correction factor.</li>
+</ul>
+<li> <b style="color:#6C2333;"> The log-distance path loss model:</b> <img src="{% static "doe/images/fig21.png" %}"> </li>
+    <br> Where: <ul> <li>  PL0 is the path loss at the reference distance d0</li>
+ <li>  γ is the path loss exponent, taken equal to 2.</li>
+ <li> Xg is a normal (or Gaussian) random variable with zero mean, reflecting the attenuation (in decibel) caused by flat fading, taken equal to 0.</li>
+
+</ul>
+</ul>
+<h4 style="color:#004d99;"> Result: </h4>
+<img src="{% static "doe/images/fig3.png" %}">
+<textarea  rows="3" cols="80">Mean quare error r2lab/log: 15.634757993982516
+Mean quare error r2lab/hata: 92.28024469715685</textarea>
+<br>
+The model representing the best the transmission inside r2lab is the logarithm model, indeed this model was made for indoor communication
+where the signal fades rapidly with distance.
+
+<h3> 4.The rssi is very hard to predict. Calibration, a first answer ? </h3>
+<img src="{% static "doe/images/fig4.png" %}">
+<h4 style="color:#004d99;"> Introduction: </h4>
+We only want to characterize the channel, this is why we run experiments in an anechoic chamber to discard the maximum interference
+possible, but we still have fluctuations of signal. In a matter of fact Wireless cards tend to run unseen algorithms to make the signal
+better when they sense that the noise level is higher than a threshold. We recall that the noise is a parasite signal that wireless
+cards continuously measure in every channel among the possible ones to use, it is inherent to the card, the noise depends on the state
+of the cards, on the state of the antennas etc. <br>
+To investigate these changes we run the same experiment but this time by getting the noise level before running the pings and importantly by turning off all the
+other wireless nodes. <br>
+<img src="{% static "doe/images/fig5.png" %}">
+
+<h5> What do we see ? </h5>
+The noise signal increases at some moments, the card then senses it and tries to adjust itself for a better reception which causes signal to get better at these times.
+
+<h3> 5. Heatmaps:</h3>
+<h4 style="color:#004d99;"> Introduction </h4>
+Heatmaps are a nice way of characterizing the transmission inside the lab, we pick a node sender and display the power received by
+all the other nodes. Heatmaps are also a way to look for changes and spot if some nodes do not receive as they should.
+We will use heatmaps to denote changes between the two transmission bands in wifi, namely 2ghz and 5ghz.
+I should say that it is not permitted to use the 5ghz band is France. The cards come with regulations depending on where they will
+be sold. We had to work around the ath9k driver of the atheros cards and recompile the linux wireless driver to access that band. <br>
+In theory the transmission in 5ghz is more prone to signal degradation with distance. And also the signal is more attenuated when it meets an obstacle due to the behavior of electromagnetic waves with obstacles of the same size as the wave.
+Waves that have the same length of obstacles will get attenuated more than if the wavelength is longer than the
+obstacles it sees. <br>
+We note the corresponding matching between wavelengths to frequencies: <br>
+ 2ghz : 12.5 cm <br>
+ 5ghz : 6 cm  <br>
+<img src="{% static "doe/images/fig6.png" %}">
+<br>
+
+<!--
+But in the heatmap we see that the rss is fairly the same. In fact in order to notice the behavior according to frequency, we must
+reduce the power, because the way of adding (porté) of the wavelength is to increase power, thus to see .. we reduce the power
+<img src="{% static "doe/images/fig7.png" %}">
+We can finally see a difference in the received power as nodes get distant from the source.
+Now we understand more why we receive in 2ghz more than we receive in 5ghz (in general). And it is one of the reasons why the
+2ghz band is generally more used in the world. -->
+We don't see a particular logic in which the signal is all time better.
+In matter of fact if one wants to see the difference in this context, the distance should be increased more than what the lab offers.
+The lab highest distance between two nodes is 12.14 meters, while wifi's range is up to 100m. Thus we don't observe the so called difference between
+2ghz and 5ghz.
+Instead we see the following pattern when node 1 is sender:
+<img src="{% static "doe/images/fig13.png" %}">
+<br>
+What could cause such a pattern is the disposition of nodes inside the room, in matter of fact each node is covered by a metallic cache.
+and we know that conductors are perfect reflectors of the electromagnetic waves. thus the transmission inside is subject to reflexions and
+depending on the wavelength we could get a better signal in some areas in 2ghz and in other areas for 5ghz. <br>
+It is hard to predict what will happen with reflexions. The reflexion is proved by the following: <br>
+Node 25 and node 23 don't see each other, they should ne be able to communication but an experiment done to assess the impact of line of sight gave the following: <br>
+<img src="{% static "doe/images/fig14.png" %}"> <textarea  rows="3" cols="80">
+Node sender                Node receiver           LOS                    Rss
+25			    14			    Yes			-43.71
+25			    23			    No			-56.85
+</textarea> <br>
+The difference is of 13 dB, which is huge but we still get a signal.
+
+<h3> 6.Do other nodes cause interference ? </h3>
+<b> The answer is yes. </b> If the nodes are sharing the same frequency canal, or adjacent canals (which is our case). But the question is how much interference do they cause.
+To answer this questions we went to modify the script used to get the rssi. We added the command ip link set down on wireless
+interfaces of other nodes before transmitting between two nodes. The goal was to leave only the nodes communicating with
+interfaces that are up. <br>
+We display a heatmap of same the frequency, before and after adding the command in the scrpit
+<img src="{% static "doe/images/fig8.png" %}"> <br>
+There is a small difference, we slightly receive a better signal when we turn off the wireless in other nodes.
+The reason why we don't see a major change is that we don't run our ping experiment simultaneously, instead we sequentially run the pings,
+which causes signal not to melt with another one. The difference noticed is that nodes stop sending control packets when turning off their wireless interfaces.
+
+We noneless need to say that sometimes interference can be positive, the received
+signal is then the sum of two interference signals that give signal of higher amplitude, depending on the phase of the signals at the time of
+interference. <br> <br> So does that mean that turning off wireless interfaces causes results to be more predictive ? <br>
+To answer that we display consecutive heatmaps of the same frequency both with the logic of turning off wireless interfaces before
+transmission.
+<img src="{% static "doe/images/fig9.png" %}">
+The highest fluctuation is an absolute value of 2.6 dB. <br>
+When we do the same experience without turning off wireless interfaces:
+<img src="{% static "doe/images/fig10.png" %}"> <br>
+We would expect to have more fluctuation in the signal but we notice that fluctuations are of the same order, because in fact there is a stability in the noise as well. <br>
+When we look at the noise at the moment of transmission, when turning off wireless of other nodes we expect to have less noise in the room.
+
+Let us see how much stability there is. We display a noise heatmap between no ip link set down and ip link set down:
+<img src="{% static "doe/images/fig11.png" %}">
+The noise is fairly the same in the two heatmaps. <br>
+
+Another element worth mentioning is that there is more noise in 2ghz than in 5ghz, we can see it from the noise figure in 5ghz below:
+<img src="{% static "doe/images/fig12.png" %}">
+
+<h3> 7. oK so what are the influent factors on the rssi ? </h3>
+<a href="{% url 'doe:exp1' %}"> Design of experiment </a>
+</body>
+</html>
+<!-- (comes along with gain aggregated of all antennas) We changed the antennas of the nodes to aggregate one disposal. The following heatmap comparaison in showing that we were
+receiving a better signal before changing the antennas, but the signal was a priori not predictible. in matter of fact the spacial
+ disposition of antennas allowed first to get a better signal when using the methid (...) but in order to get more consistency
+  in results and preictability we choose to change them to fit one position -->

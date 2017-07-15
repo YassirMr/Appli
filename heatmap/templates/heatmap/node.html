@@ -1,10 +1,32 @@
-
-
-
+{% load static %}
+<!--
+<style>
+.body {
+color:black;
+background-color:white;
+background-image:url("{% static "heatmap/images/chambre.jpeg" %}");
+}
+</style> -->
+<title>Daily change</title>
+<body class="body">
         <form action="{% url "heatmap:node" %}" method="post">
     {% csrf_token %}
     {{ form.as_table }}
     <input type="submit" value="submit">
 
 <br> <a href="{% url 'heatmap:index' %}"> Go back to home page  </a> </li> </br>
+
+
+ {% if messages %}
+
+                <img src="{% static "heatmap/images/fig1.png" %}" />
+                <br>
+<textarea style=" background-color: lightblue" rows="5" cols="120">
+    Rss got in 2ghz : {{ c }}
+    Rss got in 5ghz :  {{ d }}
+</textarea>
+{% endif %}
+</body>
+
+
 
