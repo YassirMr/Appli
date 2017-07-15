@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Summary</title>
+</head>
+{% load static %}
+<p>
+
+<h3 style="color:#004080;"> Introduction: </h3>
+<img src="{% static "doe/images/fig16.png" %}"> <br>
+<ul>
+<li> R2lab is an anechoic chamber that offers the possibility to run tests into a controlled environment for reproducible research in wireless WiFi and 4G/5G networks. </li>
+    <li> The lab is composed of 37 nodes, each one has 2 wireless cards that it can use for transmission. </li>
+    </ul>
+<!-- R2lab ? principles, description, characteristics of nodes.
+then
+what do we want ? why do we do this ?  -->
+
+<h3 style="color:#004080;"> Methodology: </h3>
+Our goal is to characterize the transmission inside of the lab and to understand the signal behavior (for predictability and reproducibility.) <br>
+In order to characterize the transmission, we use the received signal strength metric. Namely when a node sends a packet to another,
+the power of the signal received by the antenna is the metric used to say if the packet is usable or not. (if there is enough energy carried to decode the bits).<br> <br>
+<ul> <li> A very good signal is above -40 dBm  </li>
+<li> A good signal is -65 to -40 dBm  </li>
+<li> Noise is below -85 dBm </li>  </ul>
+<h4 style="color:#47476b;"> Reminder </h4>
+<img src="{% static "doe/images/fig15.png" %}">
+<h4 style="color:#47476b;"> How to achieve it ? </h4>
+We will simply use the ping command to allow nodes to communicate and get the signal strength at the receiver node.
+<h4 style="color:#47476b;"> What did we use ? (The technology behind) </h4> <!-- :(python, async, ssh nodes, ssh jobs..) -->
+<b> We used : </b>
+<ul>
+<li> Python for programming the scripts that we run at the level of nodes.  </li>
+<li> The apssh library to create ssh nodes which are instances holding information of an ssh connection and then instances of ssh jobs to be run at nodes.  </li>
+    <li> Then the asynciojobs library executes the ssh jobs asynchronously at nodes and returns a result as soon as a node finishes processing. </li>   </ul>
+<h4 style="color:#47476b;"> The script in a nutshell </h4>
+<ul>
+    <li> Create the ssh connections we will need.  </li>
+    <li> Run a bash script in each node to create an ad-hoc network between nodes at the same frequency. </li>
+    <li> Run tcpdump in each node. </li>
+    <li> Run pings between nodes. </li>
+    <li> Filter the pcap files and retrieve columns of interest corresponding to received signal strength and ip addresses of nodes. </li>   </ul>
+<h3 style="color:#004080;"> Results: </h3>
+<a href="{% url 'doe:result1' %}"> Results </a>
+</body>
+</html>
