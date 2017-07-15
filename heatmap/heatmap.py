@@ -6,19 +6,20 @@ from plotly import tools
 def list_sort(a):
  b=[]
  for i in a:
-  b.append((int(i.split(":")[0].split("/")[0]),int(i.split(":")[0].split("/")[1]),int(i.split(":")[1])))
- b.sort(key=operator.itemgetter(1,0,2))
+  b.append((int(i.split(":")[0].split("/")[0]),int(i.split(":")[0].split("/")[1]),int(i.split(":")[1].split('-')[0]),int(i.split(":")[1].split('-')[1])))
+ b.sort(key=operator.itemgetter(1,0,2,3))
  del a[:]
  for t in b:
-  a.append("{}/{}:{}".format(t[0],t[1],t[2]))
+  a.append("{}/{}:{}-{}".format(t[0],t[1],t[2],t[3]))
 
-def draw(f,d,n):
+def draw(f,d,n,r,t,a):
     in_for_diff=[]
     rss = []
     list_sort(d)
     d=d[-2:]
+    dict={'0':'Rss_ant0','1':'Rss_ant1','2':'Rss_ant2','all':'Rss_mrc'}
     for k in d:
-        raw= models.Input.objects.values_list('Rss').filter(Timestamp=k,frequency=f,node_sender=n)
+        raw= models.Input.objects.values_list(dict[a]).filter(Timestamp=k,frequency=f,node_sender=n,rate=r,transmission_power=t)
         for i in raw:
             rss.append(i[0])
     fig = tools.make_subplots(rows=1, cols=2, subplot_titles=(
