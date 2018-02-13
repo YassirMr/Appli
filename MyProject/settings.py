@@ -25,7 +25,7 @@ SECRET_KEY = '%=^-j#1*_pu=e^89w4s*x*8qq4(hts5c^d0^40cw4aihf8pl&e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"] #make it an empty list if you don't want any allowed hosts 
 
 
 # Application definition

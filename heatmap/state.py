@@ -28,9 +28,9 @@ def show():
         days5.append(d[0])
     a5 = list(set(days5))
     list_sort(a5)
-    raw2 = models.Input.objects.values_list('Rss_ant0').filter(Timestamp=a2[-1],
+    raw2 = models.Input.objects.values_list('Rss_mrc').filter(Timestamp=a2[-1],
                                                          frequency=2412,rate=6,transmission_power=14)
-    raw5 = models.Input.objects.values_list('Rss_ant0').filter(Timestamp=a5[-1],
+    raw5 = models.Input.objects.values_list('Rss_mrc').filter(Timestamp=a5[-1],
                                                          frequency=5180,rate=6,transmission_power=14)
     for i in raw2:
             rss2.append(float(i[0]))
@@ -56,7 +56,7 @@ def prob(t,e):
         received = []
         for i in e:
             rss=[]
-            raw = models.Input.objects.values_list('Rss_ant0').filter(Timestamp=i,
+            raw = models.Input.objects.values_list('Rss_mrc').filter(Timestamp=i,
                                                           frequency=2412,rate=6,transmission_power=14)
             for i in raw:
                 rss.append(float(i[0]))
@@ -73,7 +73,7 @@ def prob(t,e):
         received = []
         for i in e:
             rss = []
-            raw = models.Input.objects.values_list('Rss_ant0').filter(Timestamp=i,
+            raw = models.Input.objects.values_list('Rss_mrc').filter(Timestamp=i,
                                                                   frequency=5180,rate=6,transmission_power=14)
             for i in raw:
                 rss.append(float(i[0]))
@@ -107,7 +107,7 @@ def last_rss():
     a2 = list(set(days2))
     list_sort(a2)
     for n in range(1,38):
-        raw2 = models.Input.objects.values_list('Rss_ant0').filter(Timestamp=a2[-1],
+        raw2 = models.Input.objects.values_list('Rss_mrc').filter(Timestamp=a2[-1],
                                                           frequency=2412,node_receiver=n,rate=6,transmission_power=14)
         for i in raw2:
             rss2.append(float(i[0]))
