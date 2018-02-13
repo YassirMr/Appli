@@ -51,7 +51,10 @@ def datasave(file,f,r,T):
         a=[]
         now = datetime.datetime.now()
         day = "{}/{}:{}-{}".format(now.day, now.month, now.hour,now.minute)
+<<<<<<< HEAD
         #day="9/6:12-26"
+=======
+>>>>>>> 3351116f336f23b4110568c63bef542ea719869d
         received_power=[[] for i in range(1,5)]
         for line in file:
                 received_power[0].append(line.decode('utf-8').split()[2])

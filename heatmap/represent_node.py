@@ -67,10 +67,17 @@ def draw(n_s,n_r,r,t):
     for i in a:
         my_xticks.append(i)
     plt.xticks(c, my_xticks, fontsize=8)
+<<<<<<< HEAD
     plt.plot(c, rss_2ghz[0], 'ro-', linewidth=2.0, label="mrc")
     plt.plot(c, rss_2ghz[1], 'bo-', linewidth=2.0, label="ant0")
     plt.plot(c, rss_2ghz[2], 'go-', linewidth=2.0, label="ant1")
     plt.plot(c, rss_2ghz[3], 'mo-', linewidth=2.0, label="ant2")
+=======
+    plt.plot(c, rss_2ghz[0], 'ro', linewidth=2.0, label="mrc")
+    plt.plot(c, rss_2ghz[1], 'bo', linewidth=2.0, label="ant0")
+    plt.plot(c, rss_2ghz[2], 'go', linewidth=2.0, label="ant1")
+    plt.plot(c, rss_2ghz[3], 'mo', linewidth=2.0, label="ant2")
+>>>>>>> 3351116f336f23b4110568c63bef542ea719869d
     plt.title('Node {} => Node {} in 2ghz'.format(n_s, n_r))
     plt.ylabel('Received power (dBm)')
 
@@ -80,10 +87,17 @@ def draw(n_s,n_r,r,t):
     for i in b:
         my_xticks.append(i)
     plt.xticks(c, my_xticks, fontsize=8)
+<<<<<<< HEAD
     plt.plot(c, rss_5ghz[0], 'ro-', linewidth=2.0, label="mrc")
     plt.plot(c, rss_5ghz[1], 'bo-', linewidth=2.0, label="ant0")
     plt.plot(c, rss_5ghz[2], 'go-', linewidth=2.0, label="ant1")
     plt.plot(c, rss_5ghz[3], 'mo-', linewidth=2.0, label="ant2")
+=======
+    plt.plot(c, rss_5ghz[0], 'ro', linewidth=2.0, label="mrc")
+    plt.plot(c, rss_5ghz[1], 'bo', linewidth=2.0, label="ant0")
+    plt.plot(c, rss_5ghz[2], 'go', linewidth=2.0, label="ant1")
+    plt.plot(c, rss_5ghz[3], 'mo', linewidth=2.0, label="ant2")
+>>>>>>> 3351116f336f23b4110568c63bef542ea719869d
     plt.ylabel('Received power (dBm)')
     plt.title('And in 5ghz',fontsize=8)
     plt.xlabel('Time format D/M:H-M')
@@ -91,4 +105,8 @@ def draw(n_s,n_r,r,t):
 
     dir = settings.BASE_DIR
     plt.savefig(dir + "/heatmap/static/heatmap/images/fig1.png")
+<<<<<<< HEAD
     return [rss_2ghz,rss_5ghz]
+=======
+    return [rss_2ghz,rss_5ghz]
+>>>>>>> 3351116f336f23b4110568c63bef542ea719869d
