@@ -71,7 +71,8 @@ def draw(f,d,n,r,t,a):
         fig.append_trace(trace, 1, t)
         t += 1
     r1 = diff(in_for_diff)
-    plotly.offline.plot(fig, filename="Heatmap.html")
+    path="heatmap/static/heatmap/html/Heatmap.html" # "Heatmap.html"
+    plotly.offline.plot(fig, filename=path,auto_open=False)
     return r1
 
 def diff(liste):
@@ -101,4 +102,5 @@ def diff(liste):
     )
     fig = tools.make_subplots(rows=1, cols=1)
     fig.append_trace(trace, 1, 1)
-    plotly.offline.plot(fig, filename="Diff.html")
+    path="heatmap/static/heatmap/html/Diff.html" # "Diff.html"
+    plotly.offline.plot(fig, filename=path,auto_open=False)

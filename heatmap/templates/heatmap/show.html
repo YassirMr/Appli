@@ -13,6 +13,14 @@ First select a frequency and check the available days
     {{ form.as_table }}
     <input type="submit" value="submit">
 </p>
+<!--  <begin> added part   -->
+{% if messages %}
+<h4> Heatmap conparison between the two timestamps </h4>
+  <iframe height="600" width="90%" src="{% static "heatmap/html/Heatmap.html" %}" > </iframe>
+  <h4> Difference of each two cells </h4>
+  <iframe height="600" width="90%" src="{% static "heatmap/html/Diff.html" %}" > </iframe>
+{% endif %}
+<!--  <end> added part   -->
 
 <script>
 function refresh() {

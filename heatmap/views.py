@@ -77,6 +77,7 @@ def show(request):
                         data = {'form': form}
                         heatmap.draw(request.POST.get('Frequencies'), request.POST.getlist('Day'), request.POST.get('Node'),request.POST.get('Rate'),request.POST.get('Transmission_power'),request.POST.get('Antenna'))
                         # request.POST.getlist('Day') this way to get the list !
+                        messages.success(request, "sucess", extra_tags="2")
                         return render(request, 'heatmap/show.html', data)
 
                 else:
