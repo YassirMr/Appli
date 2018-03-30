@@ -85,3 +85,33 @@ def prob(t,e):
         else:
             return [False]
     return [False]
+
+
+def worst(list):
+    k=list.index(sorted(list)[0])   # find a way to get rid of the -100
+    i=int(k/37)+1
+    j=k-37*(i-1)+1
+    return [i,j,sorted(list)[0]]
+def best(list):
+    k = list.index(sorted(list)[-38])
+    i = int(k / 37) + 1
+    j = k - 37 * (i - 1) + 1
+    return [i, j,sorted(list)[-38]]
+def last_rss():
+    days2=[]
+    rss2=[]
+    average=[]
+    outcome2 = models.Input.objects.values_list('Timestamp').filter(frequency=2412,rate=6,transmission_power=14)
+    for d in outcome2:
+        days2.append(d[0])
+    a2 = list(set(days2))
+    list_sort(a2)
+    for n in range(1,38):
+        raw2 = models.Input.objects.values_list('Rss_mrc').filter(Timestamp=a2[-1],
+                                                          frequency=2412,node_receiver=n,rate=6,transmission_power=14)
+        for i in raw2:
+            rss2.append(float(i[0]))
+        del rss2[n-1]
+        average.append(sum(rss2)/len(rss2))
+    #print(average)
+    return average
